@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Password Generator</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Lucida+Sans&display=swap" rel="stylesheet">
+        <style>
+            /* Body */
+            body {
+                margin: 0;
+                background-color: #000000;
+                font-family: 'Inter', sans-serif;
+                line-height: 1.7;
+            }
+
+            /* Banner */
+            #banner {
+                background: linear-gradient(to right, #6d28d9, #db2777);
+                padding: 14px 24px;
+            }
+
+            #banner h1 {
+                color: white;
+                font-family: 'Lucida Sans', sans-serif;
+                font-size: 22px;
+                margin: 0;
+            }
+
+            /* Navbar */
+            #navbar {
+                display: flex;
+                background-color: #111111;
+                padding: 0 24px;
+                border-bottom: 1px solid #222222;
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                font-family: 'Inter', sans-serif;
+                font-size: 15px;
+                color: #666666;
+                text-decoration: none;
+                border-bottom: 3px solid transparent;
+                padding: 12px 20px;
+                cursor: pointer;
+                background: none;
+                border-top: none;
+                border-left: none;
+                border-right: none;
+            }
+
+            .nav-link.active {
+                color: #e879f9;
+                border-bottom: 3px solid #e879f9;
+                font-weight: 500;
+            }
+
+            .nav-link:hover {
+                color: white;
+            }
+
+            /* Wrapper */
+            #wrapper {
+                max-width: 560px;
+                margin: 40px auto;
+                background-color: #111111;
+                border: 1px solid #222222;
+                border-radius: 8px;
+                padding: 30px 40px;
+            }
+
+            /* Page Headings */
+            .page-heading {
+                color: #f0f0f0;
+                font-family: 'Lucida Sans', sans-serif;
+                font-size: 22px;
+                margin-top: 24px;
+                margin-bottom: 8px;
+            }
+
+            /* Page Subheading */
+            .page-subheading {
+                color: #ffffff;
+                font-family: 'Lucida Sans', sans-serif;
+                font-size: 17px;
+                margin-top: 20px;
+                margin-bottom: 4px;
+            }
+
+            /* Page Text */
+            .page-text {
+                font-size: 16px;
+                line-height: 1.7;
+                color: #888888;
+                margin-bottom: 12px;
+            }
+
+            /* Page Images */
+            .page-image {
+                width: 100%;
+                border-radius: 8px;
+                margin: 12px 0;
+            }
+
+            /* Page List */
+            .page-list {
+                font-size: 16px;
+                line-height: 1.7;
+                color: #888888;
+                padding-left: 24px;
+                margin-bottom: 12px;
+            }
+
+            .page-list li {
+                margin-bottom: 6px;
+            }
+
+            .page-list a {
+                color: #e879f9;
+            }
+
+            .page-list a:hover {
+                color: white;
+            }
+
+            /* Code */
+            code {
+                background-color: #1a1a1a;
+                color: #e879f9;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-size: 13px;
+            }
+
+            /* Description */
+            #description {
+                text-align: center;
+                font-size: 16px;
+                margin-bottom: 4px;
+                color: #888888;
+            }
+
+            /* Arrow */
+            #arrow {
+                text-align: center;
+                font-size: 28px;
+                color: #db2777;
+                margin-bottom: 12px;
+            }
+
+            /* Button Container */
+            #button_container {
+                display: flex;
+                justify-content: center;
+            }
+
+            /* Generate Button */
+            #button_container button {
+                font-family: 'Inter', sans-serif;
+                color: white;
+                background: linear-gradient(to right, #6d28d9, #db2777);
+                font-size: 18px;
+                padding: 12px 40px;
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+            }
+
+            #button_container button:hover {
+                opacity: 0.85;
+            }
+
+            /* HR */
+            hr {
+                margin: 20px 0;
+                border: none;
+                border-top: 1px solid #222222;
+            }
+
+            /* Output Label */
+            #output_label {
+                font-size: 14px;
+                margin-bottom: 8px;
+                color: #555555;
+            }
+
+            /* Password Output Container */
+            #container {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            /* Column */
+            .column {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                flex: 1;
+            }
+
+            /* Output Display */
+            .output_display {
+                display: flex;
+                align-items: center;
+                background-color: #1a1a1a;
+                border: 1px solid #333333;
+                padding: 6px 10px;
+                margin: 0;
+                border-radius: 4px;
+                color: #e879f9;
+                font-size: 13px;
+                min-height: 30px;
+                word-break: break-all;
+            }
+
+            /* Contact Form */
+            #contact_form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 16px;
+            }
+
+            #contact_form label {
+                font-size: 15px;
+                color: #f0f0f0;
+                font-weight: 500;
+            }
+
+            #contact_form input,
+            #contact_form textarea {
+                font-family: 'Inter', sans-serif;
+                font-size: 15px;
+                padding: 10px 14px;
+                border: 1px solid #333333;
+                border-radius: 6px;
+                background-color: #1a1a1a;
+                color: #f0f0f0;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            #contact_form button {
+                font-family: 'Inter', sans-serif;
+                color: white;
+                background: linear-gradient(to right, #6d28d9, #db2777);
+                border: none;
+                border-radius: 6px;
+                padding: 10px;
+                font-size: 15px;
+                cursor: pointer;
+                width: 100%;
+            }
+
+            #contact_form button:hover {
+                opacity: 0.85;
+            }
+
+            /* Form Result */
+            #form_result {
+                margin-top: 16px;
+                font-size: 15px;
+                font-weight: 500;
+                padding: 12px;
+                border-radius: 6px;
+                display: none;
+            }
+
+            .form_success {
+                background-color: #1a1a2e;
+                color: #e879f9;
+                display: block !important;
+            }
+
+            /* Easter Egg */
+            #easter_egg {
+                display: none;
+                position: fixed;
+                bottom: 20px;
+                left: 0;
+                width: 100%;
+                height: 120px;
+                pointer-events: none;
+                z-index: 999;
+            }
+
+            #skeleton {
+                position: absolute;
+                height: 120px;
+                width: auto;
+                animation: run_across 3s linear forwards;
+            }
+
+            @keyframes run_across {
+                from { left: -150px; }
+                to { left: 110%; }
+            }
+
+            /* Sections */
+            .section {
+                display: none;
+            }
+
+            .section.active {
+                display: block;
+            }
+
+            /* Keep/Revert Banner */
+            #revert_banner {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: #1a1a1a;
+                border-top: 1px solid #333;
+                padding: 14px 24px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                box-sizing: border-box;
+                z-index: 1000;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            #revert_banner p {
+                margin: 0;
+                color: #aaaaaa;
+                font-size: 14px;
+            }
+
+            #revert_banner span {
+                color: #e879f9;
+                font-weight: 500;
+            }
+
+            .revert_btn_group {
+                display: flex;
+                gap: 10px;
+            }
+
+            #btn_keep {
+                font-family: 'Inter', sans-serif;
+                background: linear-gradient(to right, #6d28d9, #db2777);
+                color: white;
+                border: none;
+                border-radius: 6px;
+                padding: 8px 20px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            #btn_keep:hover { opacity: 0.85; }
+
+            #btn_revert {
+                font-family: 'Inter', sans-serif;
+                background: transparent;
+                color: #888;
+                border: 1px solid #333;
+                border-radius: 6px;
+                padding: 8px 20px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            #btn_revert:hover {
+                color: white;
+                border-color: #666;
+            }
+
+            /* Extra bottom padding so content isn't hidden by banner */
+            body { padding-bottom: 70px; }
+
+            /* Mobile */
+            @media (max-width: 600px) {
+                #wrapper {
+                    margin: 16px;
+                    padding: 20px;
+                }
+
+                #banner h1 {
+                    font-size: 16px;
+                }
+
+                .nav-link {
+                    font-size: 13px;
+                    padding: 10px 12px;
+                }
+
+                #container {
+                    flex-direction: column;
+                }
+
+                .output_display {
+                    font-size: 11px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- Banner -->
+        <div id="banner">
+            <h1>World's Best Password Generator</h1>
+        </div>
+
+        <!-- Nav -->
+        <nav id="navbar">
+            <button class="nav-link active" onclick="show_section('generator', this)">Generator</button>
+            <button class="nav-link" onclick="show_section('about', this)">About</button>
+            <button class="nav-link" onclick="show_section('contact', this)">Contact</button>
+            <button class="nav-link" onclick="show_section('biography', this)">Biography</button>
+            <button class="nav-link" onclick="show_section('faq', this)">FAQ</button>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="wrapper">
+
+            <!-- GENERATOR -->
+            <div id="section_generator" class="section active">
+                <p id="description">Press to Generate New Passwords</p>
+                <div id="arrow">&#9660;</div>
+                <div id="button_container">
+                    <button onclick="generate_password(16)">Generate</button>
+                </div>
+                <hr>
+                <p id="output_label">Output</p>
+                <div id="container">
+                    <div class="column">
+                        <p id="password_1_el" class="output_display"></p>
+                        <p id="password_3_el" class="output_display"></p>
+                        <p id="password_5_el" class="output_display"></p>
+                    </div>
+                    <div class="column">
+                        <p id="password_2_el" class="output_display"></p>
+                        <p id="password_4_el" class="output_display"></p>
+                        <p id="password_6_el" class="output_display"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABOUT -->
+            <div id="section_about" class="section">
+                <h2 class="page-heading">About This Tool</h2>
+                <p class="page-text">This website creates strong, completely random passwords to help keep your accounts secure. Each password is 16 characters long and uses a mix of uppercase, lowercase, numbers, and special characters.</p>
+
+                <img class="page-image" src="8083244.png" alt="Computer with code icon">
+
+                <h2 class="page-heading">Why Strong Passwords Matter</h2>
+                <p class="page-text">Weak passwords are one of the most common reasons for account breaches. A strong password should be long and contain unique characters. Avoid reusing passwords across multiple accounts and platforms.</p>
+
+                <img class="page-image" src="photo-1670057037226-b3d65909424f.avif" alt="Code on a screen">
+
+                <h2 class="page-heading">How It Works</h2>
+                <p class="page-text">The generator selects from a list of different characters and uses JavaScript's <code>Math.random()</code> to create a unique, completely randomized password. Every click produces 6 completely new passwords instantly.</p>
+            </div>
+
+            <!-- CONTACT -->
+            <div id="section_contact" class="section">
+                <h2 class="page-heading">Contact</h2>
+                <p class="page-text">Fill out the form below or reach out directly at <a href="mailto:dtorres3795@gmail.com" style="color:#e879f9;">dtorres3795@gmail.com</a></p>
+
+                <form id="contact_form" onsubmit="submit_form(event)">
+                    <label for="contact_name">Name</label>
+                    <input type="text" id="contact_name" placeholder="Your name" required>
+
+                    <label for="contact_email">Email</label>
+                    <input type="email" id="contact_email" placeholder="Your email" required>
+
+                    <label for="contact_message">Message</label>
+                    <textarea id="contact_message" rows="5" placeholder="Your message..." required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+                <div id="form_result"></div>
+            </div>
+
+            <!-- BIOGRAPHY -->
+            <div id="section_biography" class="section">
+                <h2 class="page-heading">About the Developer</h2>
+                <p class="page-text">Hello, my name is Damien Torres. I'm 19 and a computer science student with a passion for web development and building useful tools. This website was made as part of my web development coursework.</p>
+
+                <p class="page-text">Outside of schoolwork, I enjoy programming and working on personal projects.</p>
+
+                <h2 class="page-heading">Skills</h2>
+                <ul class="page-list">
+                    <li>Programming</li>
+                </ul>
+            </div>
+
+            <!-- FAQ -->
+            <div id="section_faq" class="section">
+                <h2 class="page-heading">Frequently Asked Questions</h2>
+
+                <h3 class="page-subheading">How long should a password be?</h3>
+                <p class="page-text">At least 16 characters. The longer the better — length is one of the most important factors in password strength.</p>
+
+                <h3 class="page-subheading">Should I reuse passwords?</h3>
+                <p class="page-text">Never. If one account is breached, reusing passwords means all your other accounts become vulnerable too.</p>
+
+                <h3 class="page-subheading">How often should I change my password?</h3>
+                <p class="page-text">You should only change a password if you suspect it has been compromised or if a service you use has been breached.</p>
+
+                <h3 class="page-subheading">What makes a password weak?</h3>
+                <p class="page-text">Short length, common words, predictable patterns like "123456" or "password", and reusing passwords across multiple sites all make a password weak.</p>
+            </div>
+
+        </div>
+
+        <!-- Easter Egg -->
+        <div id="easter_egg">
+            <img id="skeleton" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3hrYnI1MWFhYTNzcXk4a2YyaDgxMjJsNGQ2NWRlbGhsY2R4MjFpOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/o7mLSkGYCu9Pi/giphy.gif" alt="Running skeleton">
+        </div>
+
+        <!-- Keep / Revert Banner -->
+        <div id="revert_banner">
+            <p>⚡ <span>Combined version</span> — all pages merged into one file. Happy with it?</p>
+            <div class="revert_btn_group">
+                <button id="btn_revert" onclick="revert_changes()">↩ Revert</button>
+                <button id="btn_keep" onclick="keep_changes()">✓ Keep Changes</button>
+            </div>
+        </div>
+
+        <script>
+            // ── Navigation ──────────────────────────────────────────────
+            function show_section(name, clicked_link) {
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.getElementById('section_' + name).classList.add('active');
+                clicked_link.classList.add('active');
+            }
+
+            // ── Keep / Revert ────────────────────────────────────────────
+            function keep_changes() {
+                document.getElementById('revert_banner').style.display = 'none';
+                document.body.style.paddingBottom = '0';
+            }
+
+            function revert_changes() {
+                if (confirm("Are you sure you want to revert? This will take you back to the original separate-file version.")) {
+                    alert("To revert: replace this index.html with your original files (index.html, about.html, contact.html, biography.html, faq.html). Your originals haven't been modified.");
+                }
+            }
+
+            // ── Character Array ──────────────────────────────────────────
+            const characters = [
+                "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T",
+                "U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n",
+                "o","p","q","r","s","t","u","v","w","x","y","z",
+                "0","1","2","3","4","5","6","7","8","9",
+                "~","`","!","@","#","$","%","^","&","*","_","-","+","=",",",":",";",".","?","/"
+            ];
+
+            // ── DOM Elements ─────────────────────────────────────────────
+            const password_1_El = document.getElementById("password_1_el");
+            const password_2_El = document.getElementById("password_2_el");
+            const password_3_El = document.getElementById("password_3_el");
+            const password_4_El = document.getElementById("password_4_el");
+            const password_5_El = document.getElementById("password_5_el");
+            const password_6_El = document.getElementById("password_6_el");
+
+            // ── Easter Egg ───────────────────────────────────────────────
+            let click_times = [];
+
+            function check_spam() {
+                const now = Date.now();
+                click_times.push(now);
+                click_times = click_times.filter(t => now - t < 2000);
+                if (click_times.length >= 7) {
+                    click_times = [];
+                    show_easter_egg();
+                }
+            }
+
+            function show_easter_egg() {
+                const egg = document.getElementById("easter_egg");
+                const skeleton = document.getElementById("skeleton");
+                if (!egg || !skeleton) return;
+                egg.style.display = "block";
+                skeleton.style.animation = "none";
+                skeleton.offsetHeight;
+                skeleton.style.animation = "run_across 3s linear forwards";
+                setTimeout(() => { egg.style.display = "none"; }, 3000);
+            }
+
+            // ── Contact Form ─────────────────────────────────────────────
+            function submit_form(event) {
+                event.preventDefault();
+                const result = document.getElementById("form_result");
+                result.textContent = "Message sent! Thanks for reaching out.";
+                result.className = "form_success";
+                document.getElementById("contact_form").reset();
+            }
+
+            // ── Password Generation ──────────────────────────────────────
+            function generate_a_char() {
+                return characters[Math.floor(Math.random() * characters.length)];
+            }
+
+            function generate_password(length_of_password) {
+                check_spam();
+                let p1="", p2="", p3="", p4="", p5="", p6="";
+                for (let i = 0; i < length_of_password; i++) {
+                    p1 += generate_a_char();
+                    p2 += generate_a_char();
+                    p3 += generate_a_char();
+                    p4 += generate_a_char();
+                    p5 += generate_a_char();
+                    p6 += generate_a_char();
+                }
+                const maybe = (p) => Math.random() < 0.01 ? "$ucce$$" : p;
+                password_1_El.textContent = maybe(p1);
+                password_2_El.textContent = maybe(p2);
+                password_3_El.textContent = maybe(p3);
+                password_4_El.textContent = maybe(p4);
+                password_5_El.textContent = maybe(p5);
+                password_6_El.textContent = maybe(p6);
+            }
+        </script>
+    </body>
+</html>
